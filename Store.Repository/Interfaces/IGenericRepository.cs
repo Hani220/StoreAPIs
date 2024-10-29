@@ -1,4 +1,6 @@
 ﻿using Store.Data.Entities;
+using Store.Repository.Specification;
+using Store.Repository.Specification.ProductSpecs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,10 @@ namespace Store.Repository.Interfaces
         Task<TEntity> GetByIdAsync(TKey? id);
 
         Task<IReadOnlyList<TEntity>> GetAllAsync();
+
+        Task<TEntity> GetByIdWithSpecificationAsync(ISpecification<TEntity> specifications);
+
+        Task<IReadOnlyList<TEntity>> GetAllWithSpecificationAsync(ISpecification<TEntity> specifications);
 
         Task AddAsync (TEntity entity);
 

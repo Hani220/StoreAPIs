@@ -27,6 +27,7 @@ namespace Store.Repository
                     }
 
                 }
+
                 if (context.productsBrands != null && !context.productsBrands.Any())
                 {
                     var brandData = File.ReadAllText("../Store.Repository/DataSeeding/brands.json");
@@ -39,7 +40,9 @@ namespace Store.Repository
 
                 }
 
-              
+
+
+
 
                 if (context.products != null && !context.products.Any())
                 {
