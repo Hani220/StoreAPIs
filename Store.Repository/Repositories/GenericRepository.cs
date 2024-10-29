@@ -2,6 +2,7 @@
 using Store.Data.Context;
 using Store.Data.Entities;
 using Store.Repository.Interfaces;
+using Store.Repository.Specification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,12 @@ namespace Store.Repository.Repositories
         public async Task<IReadOnlyList<TEntity>> GetAllAsync()
         => await _context.Set<TEntity>().AsNoTracking().ToListAsync();
 
+        public async Task<TEntity> GetByIdWithSpecificationAsync(ISpecification<TEntity> specifications)
+         => await ApplySpecifications(specifications).FirstOrDefaultAsync();
+
+
+        public async Task<IReadOnlyList<TEntity>> GetAllWithSpecificationAsync(ISpecification<TEntity> specifications)
+             => await ApplySpecifications(specifications).ToListAsync();
 
         public async Task AddAsync(TEntity entity)
         => await _context.Set<TEntity>().AddAsync(entity);
@@ -40,7 +47,9 @@ namespace Store.Repository.Repositories
         =>  _context.Set<TEntity>().Remove(entity);
 
 
-
-
+        public IQueryable<TEntity> ApplySpecifications(ISpecification<TEntity> specifications) 
+         => SpecificationEvaluator<TEntity,TKey>.GetQuery(_context.Set<TEntity>(), specifications);  
+        
+       
     }
 }
