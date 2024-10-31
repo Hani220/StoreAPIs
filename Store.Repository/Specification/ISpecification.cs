@@ -16,5 +16,18 @@ namespace Store.Repository.Specification
         
         List <Expression<Func<T,Object>>> Includes { get; }
         // for includes
+
+        Expression<Func<T, object>> OrderBy { get; }
+
+        Expression<Func<T, object>> OrderByDescending { get; }
+
+
+        //Pagination
+
+        int Take { get; }   
+
+        int Skip { get; }
+
+        bool IsPaginated { get; }
     }
 }
